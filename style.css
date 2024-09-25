@@ -29,5 +29,6 @@ body {
 
 #sticking{
     position: sticky;
-    top: 0;
+    top: 10%;
+    left: 50%;
 }
