@@ -14,6 +14,7 @@ body {
     padding: 10px;
     align-items: center;
     justify-content: center;
+    display: flex;
 }
 
 #container div{
@@ -24,4 +25,9 @@ body {
     height: 160px;
     overflow: scroll;
     box-sizing: border-box;
+}
+
+#sticking{
+    position: sticky;
+    top: 0;
 }
