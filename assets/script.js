@@ -1,35 +1,38 @@
-//nomor 5
-function checkMin8Char(event){
-	const inp = event.target;
-	const icon = inp.nextSibling;
+// Function to check if username and password have at least 8 characters
+function checkMin8Char(event) {
+    const input = event.target;
+    const checkIcon = input.nextElementSibling;
 
-	if(inp.value.length >= 8){
-		icon.classList.remove("hidden");
-	}
-	else{
-		icon.classList.add("hidden");
-	}
+    // Show the check icon if the input has 8 or more characters
+    if (input.value.length >= 8) {
+        checkIcon.classList.remove("hidden");
+    } else {
+        checkIcon.classList.add("hidden");
+    }
 }
 
-//nomor 6
-function initDoB(day_el,month_el,year_el){
-	const months= ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-	
-	for (let day = 1; day <= 31; day++) {
+// Function to initialize the date dropdowns
+function initDoB(day_el, month_el, year_el) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+    // Fill the day dropdown (1-31)
+    for (let day = 1; day <= 31; day++) {
         const option = document.createElement('option');
         option.value = day;
         option.text = day;
         day_el.appendChild(option);
     }
-	
-	months.forEach(function(month, index){
+
+    // Fill the month dropdown with names from the months array
+    months.forEach((month, index) => {
         const option = document.createElement('option');
         option.value = index + 1; // Month numbers (1-12)
         option.text = month;
         month_el.appendChild(option);
     });
 
-	for (let year = 2014; year <= 2024; year++) {
+    // Fill the year dropdown (1900-2022)
+    for (let year = 1900; year <= 2022; year++) {
         const option = document.createElement('option');
         option.value = year;
         option.text = year;
@@ -37,26 +40,41 @@ function initDoB(day_el,month_el,year_el){
     }
 }
 
-//nomor 9
-function validation(event){
+// Function to validate the form
+function validation() {
+    const username = document.querySelector('input[name="username"]');
+    const password = document.querySelector('input[name="password"]');
     const hobbies = document.querySelectorAll('input[name="hobby"]:checked');
 
-    const validUsername = document.querySelector('input[name="username"]').value.length >= 8;
-    const validPassword = document.querySelector('input[name="password"]').value.length >= 8;
-	const validHobbies = document.querySelectorAll('input[name="hobby"]:checked').length > 0;
+    // Validate if username and password have 8 or more characters
+    const validUsername = username.value.length >= 8;
+    const validPassword = password.value.length >= 8;
+
+    // Validate if at least one hobby is selected
+    const validHobbies = hobbies.length > 0;
 
     // Show an error if validation fails
     if (!validUsername || !validPassword || !validHobbies) {
         alert('Invalid inputs');
         return false;
     }
-	else return true;
+
+    return true;
 }
 
-//nomor 11
-function submit(event){
+// Function to handle the form submission
+function submit(event) {
+    event.preventDefault(); // Prevent actual form submission
+
+    // If validation passes, show the confirmation data
     if (validation()) {
-        document.getElementById('confirmation_container').classList.remove("hidden");
+        const confirmationContainer = document.getElementById('confirmation_container');
+        confirmationContainer.classList.remove("hidden");
+
+        // Fill the confirmation fields with form data
+        const usernameConf = document.querySelector('input[name="usernameconf"]');
+        const dobConf = document.querySelector('input[name="dobconf"]');
+        const hobbyConf = document.querySelector('input[name="hobbyconf"]');
 
         const username = document.querySelector('input[name="username"]').value;
         const day = document.querySelector('select[name="day"]').value;
@@ -65,29 +83,42 @@ function submit(event){
         const dob = `${day}-${month}-${year}`;
         const hobbies = Array.from(document.querySelectorAll('input[name="hobby"]:checked')).map(hobby => hobby.value).join(',');
 
-        document.querySelector('input[name="usernameconf"]').value = username;
-        document.querySelector('input[name="dobconf"]').value = dob;
-        document.querySelector('input[name="hobbyconf"]').value = hobbies;
+        usernameConf.value = username;
+        dobConf.value = dob;
+        hobbyConf.value = hobbies;
     }
 }
 
-(function(){
-	//nomor 3: mouse hover
-	document.querySelector('h1').addEventListener('mouseover', function(){
-        document.querySelector('h1').style.color = 'blue';
-    });
-	document.querySelector('h1').addEventListener('mouseout', function(){
-        document.querySelector('h1').style.color = 'blue';
+// Immediately invoked function to set up event listeners
+(function() {
+    const title = document.querySelector('h1');
+    const checkButton = document.querySelector('input[name="check"]');
+    const form = document.getElementById('register_form');
+    
+    // Handle title hover (change color to blue on mouseover and reset on mouseout)
+    title.addEventListener('mouseover', () => {
+        title.style.color = 'blue';
     });
 
-	//nomor6: dob
-	const day_el = document.querySelector('select[name="day"]');
+    title.addEventListener('mouseout', () => {
+        title.style.color = 'black';
+    });
+
+    // Initialize date dropdowns
+    const day_el = document.querySelector('select[name="day"]');
     const month_el = document.querySelector('select[name="month"]');
     const year_el = document.querySelector('select[name="year"]');
-	initDoB(day_el, month_el, year_el);
+    initDoB(day_el, month_el, year_el);
 
-	//event listener check input, button, submit
-    document.querySelector('input[name="username"]').addEventListener('input', checkMin8Char);
-    document.querySelector('input[name="password"]').addEventListener('input', checkMin8Char);
+    // Check username and password length
+    const usernameInput = document.querySelector('input[name="username"]');
+    const passwordInput = document.querySelector('input[name="password"]');
+    usernameInput.addEventListener('input', checkMin8Char);
+    passwordInput.addEventListener('input', checkMin8Char);
+
+    // Handle Check button click
+    checkButton.addEventListener('click', validation);
+
+    // Handle form submission
+    form.addEventListener('submit', submit);
 })();
-	
