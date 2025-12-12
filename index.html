@@ -1,0 +1,67 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>67 Generatur</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #e7f7ff;
+            }
+            div{
+                border-radius: 10px;
+                padding: 20px;
+                background-image: linear-gradient(to bottom, rgba(123, 191, 255, 0), rgba(123, 191, 255, 1));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            button{
+                color: red;;
+            }
+            p{
+                font-size: small;
+                opacity: 0.2;
+            }
+            #idia{
+                height: 150px;
+                position: absolute;
+                top: 365px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>67 Generaturr ₍^. .^₎⟆</h1>
+
+        <div>
+            <h3>How many 6 and 7sss does one even need?</h3>
+            <input type="text" id="interlink" placeholder="NUMBERS ONLY.. >:("></input>
+            <button id="degen">GENERATE IT.</button>
+            <p>(b patience if u go over 7 digits)</p>
+            <textarea id="out" cols="50" rows="10" readonly placeholder="hrmmm..."></textarea>
+        </div>
+
+        <img id="idia" src="assets/urrmIdia.png">
+    </body>
+    <script>
+        
+        
+        const button = document.getElementById("degen");
+        button.addEventListener("click", repeat67);
+
+        function repeat67(){
+            let res = "";
+            const repeatN = Number(document.getElementById("interlink").value);
+
+            for(let i = 0; i < repeatN; i++){
+                res +="67 ";
+            }
+
+            document.getElementById("out").value = res;
+        }
+
+        
+    </script>
+</html>
